@@ -1,0 +1,33 @@
+{
+  "name": "krek",
+  "version": "1.0.0",
+  "description": "Increment your version, no semver – only chaos.",
+  "main": "krek.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cursedcoder/krek.git"
+  },
+  "keywords": [
+    "version",
+    "increment",
+    "maven",
+    "pom",
+    "package"
+  ],
+  "author": "Yevhenii Huselietov",
+  "contributors": [
+    "Yevhenii Huselietov <d46k16@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cursedcoder/krek/issues"
+  },
+  "homepage": "https://github.com/cursedcoder/krek#readme",
+  "dependencies": {
+    "xml2js": "^0.4.19",
+    "yargs": "^9.0.1"
+  },
+  "engines": {
+    "node": ">=8.4.0"
+  }
+}
