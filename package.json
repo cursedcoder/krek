@@ -1,8 +1,8 @@
 {
   "name": "krek",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Increment your version, no semver – only chaos.",
-  "main": "krek.js",
+  "bin": "krek.js",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/cursedcoder/krek.git"
