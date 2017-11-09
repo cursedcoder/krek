@@ -56,7 +56,9 @@ const tryCommit = (type, version) => {
     cp.execSync('git add package.json');
   }
 
-  cp.execSync('git commit -m "Bumped ' + type + ' to version ' + version + '"');
+  const output = cp.execSync('git commit -m "Bumped ' + type + ' to version ' + version + '"');
+
+  console.log(output.toString());
 };
 
 cli
@@ -105,8 +107,19 @@ cli
       fs.writeFileSync('pom.xml', output);
       tryCommit('pom', newVersion);
     });
+  })
+  .option('major', {
+    alias: 'x',
+    default: false
+  })
+  .option('minor', {
+    alias: 'y',
+    default: false
+  })
+  .option('commit', {
+    alias: 'c',
+    default: false
   });
-
 
 if (cli.argv._.length === 0) {
   cli.showHelp();
