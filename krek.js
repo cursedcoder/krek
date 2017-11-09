@@ -1,11 +1,45 @@
 #!/usr/bin/env node
 const fs = require('fs');
 
-const logBumped = (version) => {
-  console.log('Bumped from ' + version + ' to ' + (version + 1));
+const logBumped = (from, to) => {
+  console.log('Bumped from ' + from + ' to ' + (to));
 };
 
 const cli = require('yargs');
+
+const bumpVersionString = (string, level) => {
+  const split = string.toString().split('.').map(str => parseInt(str));
+
+  switch (level) {
+    case 'x':
+      split[0]++;
+      break;
+    case 'y':
+      split[1]++;
+      break;
+    case 'z':
+      split[2]++;
+      break;
+  }
+
+  return split.join('.');
+};
+
+const bumpVersionCli = (string) => {
+  let level = 'z';
+
+  switch (true) {
+    case true === cli.argv.x:
+      level = 'x';
+      break;
+
+    case true === cli.argv.y:
+      level = 'y';
+      break;
+  }
+
+  return bumpVersionString(string, level);
+};
 
 const tryCommit = (type, version) => {
   if (true !== cli.argv.commit) {
@@ -37,13 +71,14 @@ cli
 
     const content = fs.readFileSync('package.json');
     const data = JSON.parse(content);
-    const version = parseInt(data.version);
+    const version = data.version;
 
     console.log('Bumping package.json');
-    logBumped(version);
 
-    const newVersion = (version + 1).toString();
+    const newVersion = bumpVersionCli(version);
     const output = content.toString().replace(/"version": "[\d.]+"/i, '"version": "' + newVersion + '"');
+
+    logBumped(version, newVersion);
 
     fs.writeFileSync('package.json', output);
     tryCommit('package', newVersion);
@@ -58,13 +93,14 @@ cli
     const content = fs.readFileSync('pom.xml');
 
     xml.parseString(content, (err, data) => {
-      const version = parseInt(data.project.version[0]);
+      const version = data.project.version[0];
 
       console.log('Bumping pom.xml');
-      logBumped(version);
 
-      const newVersion = (version + 1).toString();
+      const newVersion = bumpVersionCli(version);
       const output = content.toString().replace(/<version>.*<\/version>/, '<version>' + newVersion + '</version>')
+
+      logBumped(version, newVersion);
 
       fs.writeFileSync('pom.xml', output);
       tryCommit('pom', newVersion);
