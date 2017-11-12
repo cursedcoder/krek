@@ -13,9 +13,12 @@ const bumpVersionString = (string, level) => {
   switch (level) {
     case 'x':
       split[0]++;
+      split[1] = 0;
+      split[2] = 0;
       break;
     case 'y':
       split[1]++;
+      split[2] = 0;
       break;
     case 'z':
       split[2]++;
