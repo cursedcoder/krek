@@ -1,6 +1,6 @@
 {
   "name": "krek",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Increment your version, no semver – only chaos.",
   "bin": "krek.js",
   "repository": {
